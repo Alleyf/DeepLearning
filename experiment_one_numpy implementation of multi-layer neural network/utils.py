@@ -1,9 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 from sklearn.datasets import fetch_openml
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import confusion_matrix
+
+# 获取当前文件所在目录
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class TrainingUtils:
     @staticmethod
@@ -55,28 +59,15 @@ class TrainingUtils:
     
     @staticmethod
     def save_model(layers, params_dict):
-        """
-        保存模型参数
-        
-        参数：
-            layers: 神经网络各层
-            params_dict: 参数字典
-        """
+        # 确保文件保存在当前目录下
+        save_path = os.path.join(CURRENT_DIR, 'best_model.npz')
         for i, layer in enumerate(layers):
             params_dict[f'layer{i}_W'] = layer.W
             params_dict[f'layer{i}_b'] = layer.b
-        np.savez('best_model.npz', **params_dict)
+        np.savez(save_path, **params_dict)
     
     @staticmethod
     def plot_training_metrics(train_losses, val_losses, val_accuracies):
-        """
-        绘制训练过程的指标图
-        
-        参数：
-            train_losses: 训练损失列表
-            val_losses: 验证损失列表
-            val_accuracies: 验证准确率列表
-        """
         plt.figure(figsize=(12, 5))
         
         # 损失曲线
@@ -98,18 +89,12 @@ class TrainingUtils:
         plt.legend()
         
         plt.tight_layout()
-        plt.savefig('training_metrics.png')
+        save_path = os.path.join(CURRENT_DIR, 'training_metrics.png')
+        plt.savefig(save_path)
         plt.close()
     
     @staticmethod
     def plot_confusion_matrix(val_output, y_val):
-        """
-        绘制混淆矩阵
-        
-        参数：
-            val_output: 验证集预测输出
-            y_val: 验证集真实标签
-        """
         val_pred = np.argmax(val_output, axis=1)
         val_true = np.argmax(y_val, axis=1)
         cm = confusion_matrix(val_true, val_pred)
@@ -119,19 +104,12 @@ class TrainingUtils:
         plt.title('Confusion Matrix')
         plt.xlabel('Predicted')
         plt.ylabel('True')
-        plt.savefig('confusion_matrix.png')
+        save_path = os.path.join(CURRENT_DIR, 'confusion_matrix.png')
+        plt.savefig(save_path)
         plt.close()
     
     @staticmethod
     def plot_error_samples(X_val, val_output, y_val):
-        """
-        绘制错误预测样本
-        
-        参数：
-            X_val: 验证集输入数据
-            val_output: 验证集预测输出
-            y_val: 验证集真实标签
-        """
         val_pred = np.argmax(val_output, axis=1)
         val_true = np.argmax(y_val, axis=1)
         error_indices = np.where(val_pred != val_true)[0]
@@ -148,5 +126,6 @@ class TrainingUtils:
             plt.title(f'True: {val_true[idx]}\nPred: {val_pred[idx]}')
             plt.axis('off')
         plt.tight_layout()
-        plt.savefig('error_samples.png')
+        save_path = os.path.join(CURRENT_DIR, 'error_samples.png')
+        plt.savefig(save_path)
         plt.close()
