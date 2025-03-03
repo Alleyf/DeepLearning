@@ -202,7 +202,14 @@ def hyperparameter_search():
     测试组合：
     - 学习率：[0.1, 0.01, 0.001]
     - 优化器：['sgd', 'adam']
+    
+    早停策略：
+    - patience: 连续3轮验证准确率无提升则判定为收敛
+    - min_delta: 判定准确率提升的最小阈值为0.001
     """
+    # 早停策略参数
+    patience = 3
+    min_delta = 0.001
     import pandas as pd
     from itertools import product
     
@@ -232,6 +239,9 @@ def hyperparameter_search():
         # 修改训练参数
         train_losses = []
         val_accuracies = []
+        best_val_acc = 0
+        patience_counter = 0
+        converged_epoch = 0
         
         for epoch in range(20):
             # 训练步骤
@@ -289,6 +299,19 @@ def hyperparameter_search():
         val_output = a
         val_acc = TrainingUtils.evaluate(X_val, y_val, layers)
         val_accuracies.append(val_acc)
+        
+        # 检查是否达到最佳准确率
+        if val_acc > best_val_acc + min_delta:
+            best_val_acc = val_acc
+            patience_counter = 0
+            converged_epoch = epoch
+        else:
+            patience_counter += 1
+        
+        # 如果连续patience轮没有改善，则认为已收敛
+        if patience_counter >= patience:
+            print(f'Early stopping at epoch {epoch}')
+            break
         
         results.append({
             'learning_rate': lr,
