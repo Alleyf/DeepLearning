@@ -1,0 +1,7 @@
+learning_rate,optimizer,final_val_acc,convergence_epoch
+0.1,sgd,0.9573571428571429,0
+0.1,adam,0.09592857142857143,0
+0.01,sgd,0.786,0
+0.01,adam,0.5089285714285714,0
+0.001,sgd,0.10992857142857143,0
+0.001,adam,0.932,0

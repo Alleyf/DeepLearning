@@ -1,0 +1,38 @@
+# Python编译文件
+*.py[cod]
+__pycache__/
+*.so
+
+# 模型文件
+*.npz
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# IDE配置
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志和临时文件
+*.log
+tmp/
+temp/
+
+# # 图表和可视化输出
+# *.png
+# *.jpg
+# *.jpeg
+# *.pdf
+
+# # 数据文件
+# *.csv
+# *.json
+# *.xlsx
+# *.xls
