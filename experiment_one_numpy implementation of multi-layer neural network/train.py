@@ -208,24 +208,19 @@ def train():
         # 其中 m̂_t = m_t/(1-β1^t), v̂_t = v_t/(1-β2^t)
             t += 1
             for i, layer in enumerate(layers):
-                # 更新权重（带偏差修正）
+                # 更新权重
                 m_params[i] = beta1 * m_params[i] + (1 - beta1) * dW_list[i]
                 v_params[i] = beta2 * v_params[i] + (1 - beta2) * (dW_list[i] ** 2)
                 m_hat = m_params[i] / (1 - beta1 ** t)
                 v_hat = v_params[i] / (1 - beta2 ** t)
-                layer.W -= learning_rate * m_hat / (np.sqrt(v_hat) + eps)
+                layer.W -= learning_rate * m_hat / (np.sqrt(v_hat) + eps)  # 应用Adam更新规则：W = W - α*m̂/(√v̂+ε)
 
-                # 更新偏置（带偏差修正）
+                # 更新偏置
                 b_m_params[i] = beta1 * b_m_params[i] + (1 - beta1) * db_list[i]
                 b_v_params[i] = beta2 * b_v_params[i] + (1 - beta2) * (db_list[i] ** 2)
                 b_m_hat = b_m_params[i] / (1 - beta1 ** t)
                 b_v_hat = b_v_params[i] / (1 - beta2 ** t)
-                layer.b -= learning_rate * b_m_hat / (np.sqrt(b_v_hat) + eps)
-
-            # 早停条件判断
-            if epoch > 10 and val_acc > best_acc:
-                convergence_epoch = epoch
-                best_acc = val_acc
+                layer.b -= learning_rate * b_m_hat / (np.sqrt(b_v_hat) + eps)  # 偏置项更新：b = b - α*b_m̂/(√b_v̂+ε)
 
         # 验证阶段
         if hasattr(X_val, 'values'):
