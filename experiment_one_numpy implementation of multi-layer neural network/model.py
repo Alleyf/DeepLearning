@@ -1,15 +1,17 @@
 import numpy as np
 
+
 class Layer:
     """
     全连接神经网络层
-    
+
     参数：
         input_dim: 输入维度
         output_dim: 输出维度
         activation: 激活函数类型 ('relu','sigmoid','tanh')
         dropout_rate: Dropout丢弃率，范围[0,1]
     """
+
     def __init__(self, input_dim, output_dim, activation='relu', dropout_rate=0.0):
         # He初始化权重矩阵: W ~ N(0, sqrt(2/n)) * 0.01缩放
         self.W = np.random.randn(input_dim, output_dim) * 0.01
@@ -23,12 +25,12 @@ class Layer:
     def forward(self, X):
         """
         前向传播计算（含Dropout）
-        
+
         参数：
-            X: 输入矩阵 ∈ R^(m×input_dim) 
+            X: 输入矩阵 ∈ R^(m×input_dim)
         返回：
             a: 激活输出 ∈ R^(m×output_dim)
-        
+
         计算步骤：
             1. z = X·W + b  线性变换
             2. a = σ(z)    激活函数
@@ -36,32 +38,32 @@ class Layer:
         """
         z = np.dot(X, self.W) + self.b  # 线性变换 z ∈ R^(m×output_dim)
         if self.activation == 'relu':
-            a = self.relu(z)            # ReLU: max(0,z)
+            a = self.relu(z)  # ReLU: max(0,z)
         elif self.activation == 'sigmoid':
-            a = self.sigmoid(z)         # Sigmoid: 1/(1+e^{-z})
+            a = self.sigmoid(z)  # Sigmoid: 1/(1+e^{-z})
         elif self.activation == 'tanh':
-            a = self.tanh(z)            # Tanh: (e^z - e^{-z})/(e^z + e^{-z})
-        
+            a = self.tanh(z)  # Tanh: (e^z - e^{-z})/(e^z + e^{-z})
+
         # 应用Dropout
         if self.dropout_rate > 0:
-            self.dropout_mask = np.random.binomial(1, 1-self.dropout_rate, size=a.shape)
-            a *= self.dropout_mask / (1-self.dropout_rate)  # 缩放以保持期望值不变
-        
+            self.dropout_mask = np.random.binomial(1, 1 - self.dropout_rate, size=a.shape)
+            a *= self.dropout_mask / (1 - self.dropout_rate)  # 缩放以保持期望值不变
+
         self.cache = (X, z, a)  # 缓存输入、线性输出、激活输出
         return a
 
     def backward(self, da, lr, reg_lambda):
         """
         反向传播计算梯度
-        
+
         参数：
             da: 上游梯度 ∈ R^(m×output_dim)
             lr: 学习率
             reg_lambda: L2正则化系数
-        
+
         返回：
             dX: 传递给下一层的梯度 ∈ R^(m×input_dim)
-        
+
         梯度公式：
             dz = da ⊙ σ'(z)
             dW = (X.T·dz)/m + λW  (含L2正则化项)
@@ -80,12 +82,12 @@ class Layer:
             dz = da * self.tanh_derivative(a)  # tanh'(a) = 1 - a²
 
         # 计算参数梯度（含L2正则化）
-        dW = np.dot(X.T, dz)/m + reg_lambda * self.W  # 正则化项 λW
-        db = np.sum(dz, axis=0, keepdims=True)/m
-        
+        dW = np.dot(X.T, dz) / m + reg_lambda * self.W  # 正则化项 λW
+        db = np.sum(dz, axis=0, keepdims=True) / m
+
         # 计算传递给前层的梯度
         dX = np.dot(dz, self.W.T)
-        
+
         # 更新参数
         self.W -= lr * dW
         self.b -= lr * db
@@ -95,8 +97,8 @@ class Layer:
     def relu(x):
         """
         ReLU激活函数
-        
-        数学表达式: 
+
+        数学表达式:
             relu(x) = max(0, x)
         """
         return np.maximum(0, x)
@@ -105,7 +107,7 @@ class Layer:
     def relu_derivative(x):
         """
         ReLU导数
-        
+
         计算规则:
             1. x > 0 时导数为1
             2. x <= 0 时导数为0
@@ -116,7 +118,7 @@ class Layer:
     def sigmoid(x):
         """
         Sigmoid激活函数
-        
+
         数学表达式:
             σ(x) = 1 / (1 + e^{-x})
         """
@@ -126,7 +128,7 @@ class Layer:
     def sigmoid_derivative(a):
         """
         Sigmoid导数
-        
+
         已知激活输出a时，导数为:
             σ'(a) = a(1 - a)
         """
@@ -136,7 +138,7 @@ class Layer:
     def tanh(x):
         """
         Tanh激活函数
-        
+
         数学表达式:
             tanh(x) = (e^x - e^{-x}) / (e^x + e^{-x})
         """
@@ -146,21 +148,22 @@ class Layer:
     def tanh_derivative(a):
         """
         Tanh导数
-        
+
         已知激活输出a时，导数为:
             tanh'(a) = 1 - a²
         """
-        return 1 - a**2
+        return 1 - a ** 2
 
 
 class SoftmaxLayer:
     """
     Softmax输出层（配合交叉熵损失）
-    
+
     参数：
         input_dim: 输入维度
         output_dim: 输出类别数
     """
+
     def __init__(self, input_dim, output_dim):
         # Xavier初始化权重矩阵
         self.W = np.random.randn(input_dim, output_dim) * 0.01
@@ -171,7 +174,7 @@ class SoftmaxLayer:
     def forward(self, X):
         """
         Softmax前向传播（数值稳定实现）
-        
+
         计算步骤：
             1. z = X·W + b
             2. 稳定化计算: exp(z - max(z))
@@ -188,7 +191,7 @@ class SoftmaxLayer:
     def backward(self, y_true, lr, reg_lambda):
         """
         Softmax层反向传播（配合交叉熵损失）
-        
+
         梯度推导：
             dz = a - y_true （当使用交叉熵损失时）
             dW = X.T·dz / m + λW
@@ -202,12 +205,12 @@ class SoftmaxLayer:
         dz = a - y_true
 
         # 计算参数梯度（含L2正则化）
-        dW = np.dot(X.T, dz)/m + reg_lambda * self.W
-        db = np.sum(dz, axis=0, keepdims=True)/m
-        
+        dW = np.dot(X.T, dz) / m + reg_lambda * self.W
+        db = np.sum(dz, axis=0, keepdims=True) / m
+
         # 计算传递给前层的梯度
         dX = np.dot(dz, self.W.T)
-        
+
         # 更新参数
         self.W -= lr * dW
         self.b -= lr * db
@@ -217,16 +220,16 @@ class SoftmaxLayer:
 def cross_entropy_loss(y_pred, y_true, reg_lambda, layers):
     """
     计算交叉熵损失（含L2正则化）
-    
+
     参数:
         y_pred: 模型预测概率分布
         y_true: 真实标签的one-hot编码
         reg_lambda: L2正则化系数
         layers: 所有需要正则化的网络层列表
-    
+
     返回:
         total_loss: 交叉熵损失 + L2正则化项
-    
+
     计算公式:
         CE = -1/m * Σ(y_true * log(y_pred))
         L2 = λ/(2m) * Σ(||W||²)
@@ -236,5 +239,5 @@ def cross_entropy_loss(y_pred, y_true, reg_lambda, layers):
     l2_loss = 0
     for layer in layers:
         l2_loss += np.sum(np.square(layer.W))  # 累加所有权重的L2范数
-    l2_loss = reg_lambda * l2_loss / (2*m)    # 正则化项系数计算
+    l2_loss = reg_lambda * l2_loss / (2 * m)  # 正则化项系数计算
     return ce_loss + l2_loss
