@@ -89,5 +89,7 @@ python train.py
 ## 贡献指南 🤝
 欢迎提交 Issue 和 Pull Request 来帮助改进项目！
 
-## 作者 👨‍💻
-如有任何问题，欢迎联系项目作者。
+## 贡献者名单 🧑💻
+<a href="https://github.com/Alleyf/DeepLearning/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Alleyf/DeepLearning" />
+</a>
