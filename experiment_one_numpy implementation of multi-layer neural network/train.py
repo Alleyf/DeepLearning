@@ -12,8 +12,21 @@ from scipy.ndimage import rotate
 # 数据加载与预处理
 def load_data():
     """
-    MNIST数据加载与预处理
+    MNIST数据加载与预处理 (改进版)
 
+    处理流程：
+    1. 数据加载：使用sklearn的fetch_openml获取MNIST数据集
+    2. 格式转换：将DataFrame转换为float32类型并归一化到[0,1]范围
+    3. 标签处理：
+       a. 转换为int8类型
+       b. 使用OneHotEncoder进行稀疏矩阵编码
+       c. 确保输出形状为(70000, 10)
+
+    关键技术点：
+    - parser='auto'自动选择最佳解析器
+    - as_frame=True保持DataFrame格式便于后续处理
+    - sparse_output=False生成密集矩阵加速计算
+  
     步骤：
     1. 从OpenML加载MNIST数据集
     2. 像素值归一化到[0,1]范围
@@ -43,6 +56,21 @@ def load_data():
 
 # 数据增强
 def data_augmentation(X, y, num_augmented=1):
+    """
+    数据增强处理流程：
+    1. 遍历原始数据集中的每个样本
+    2. 对每个样本生成num_augmented个增强版本
+    3. 应用随机旋转增强（角度范围：±15度）
+    4. 保持图像尺寸不变(reshape=False)
+
+    参数说明：
+    :param num_augmented: 每个样本的增强次数
+    :return: 
+        augmented_X: 增强后的特征矩阵 (N*(1+num_augmented), 784)
+        augmented_y: 对应的标签矩阵
+
+    注意：增强后的图像使用flatten()保持输入维度一致性
+    """
     augmented_X = []
     augmented_y = []
     for i in range(len(X)):
@@ -61,7 +89,20 @@ def data_augmentation(X, y, num_augmented=1):
 # 网络初始化
 def initialize_network():
     """
-    初始化增强版全连接神经网络
+    网络结构维度说明：
+    ----------------------------------------------------------------
+    层序 | 类型      | 输入维度 | 输出维度 | 激活函数 | Dropout率
+    ----------------------------------------------------------------
+    1    | Dense    | 784     | 1024    | ReLU    | 0.3
+    2    | Dense    | 1024    | 512     | ReLU    | 0.3
+    3    | Dense    | 512     | 256     | ReLU    | 0.3
+    4    | Softmax  | 256     | 10      | -       | -
+    ----------------------------------------------------------------
+
+    设计原则：
+    - 每层神经元数量按~50%递减防止信息瓶颈
+    - 使用Dropout缓解过拟合
+    - 最后一层使用Softmax产生概率分布
 
     网络结构：
     - 输入层: 784神经元（对应28x28像素）
@@ -139,7 +180,12 @@ def train():
             # 计算损失
             loss = cross_entropy_loss(a, y_train[i:i + batch_size], reg_lambda, layers)
 
-            # 反向传播
+            # 反向传播（基于链式法则）
+            # 损失函数对输出的导数：∂L/∂a = (predicted - true)/batch_size
+            # 逐层计算梯度：
+            # ∂L/∂W = (a_prev.T @ δ) + λ*W （L2正则项）
+            # ∂L/∂b = mean(δ, axis=0)
+            # δ_{l-1} = δ @ W.T ⊙ σ'(z_{l-1})
             dW_list = []
             db_list = []
 
@@ -154,22 +200,32 @@ def train():
                 dW_list.insert(0, dW)
                 db_list.insert(0, db)
 
-            # Adam参数更新
+            # Adam参数更新（自适应矩估计优化器）
+        # 更新公式：
+        # m_t = β1*m_{t-1} + (1-β1)*∇W
+        # v_t = β2*v_{t-1} + (1-β2)*(∇W)^2
+        # W = W - α*m̂_t/(√v̂_t + ε)
+        # 其中 m̂_t = m_t/(1-β1^t), v̂_t = v_t/(1-β2^t)
             t += 1
             for i, layer in enumerate(layers):
-                # 更新权重
+                # 更新权重（带偏差修正）
                 m_params[i] = beta1 * m_params[i] + (1 - beta1) * dW_list[i]
                 v_params[i] = beta2 * v_params[i] + (1 - beta2) * (dW_list[i] ** 2)
                 m_hat = m_params[i] / (1 - beta1 ** t)
                 v_hat = v_params[i] / (1 - beta2 ** t)
                 layer.W -= learning_rate * m_hat / (np.sqrt(v_hat) + eps)
 
-                # 更新偏置
+                # 更新偏置（带偏差修正）
                 b_m_params[i] = beta1 * b_m_params[i] + (1 - beta1) * db_list[i]
                 b_v_params[i] = beta2 * b_v_params[i] + (1 - beta2) * (db_list[i] ** 2)
                 b_m_hat = b_m_params[i] / (1 - beta1 ** t)
                 b_v_hat = b_v_params[i] / (1 - beta2 ** t)
                 layer.b -= learning_rate * b_m_hat / (np.sqrt(b_v_hat) + eps)
+
+            # 早停条件判断
+            if epoch > 10 and val_acc > best_acc:
+                convergence_epoch = epoch
+                best_acc = val_acc
 
         # 验证阶段
         if hasattr(X_val, 'values'):
@@ -223,7 +279,19 @@ def train():
 
 def hyperparameter_search():
     """
-    超参数敏感性分析实验
+    超参数敏感性分析实验（网格搜索法）
+
+    实验设计：
+    1. 全因子设计：学习率 × 优化器组合
+    2. 评估指标：验证集准确率、收敛速度
+    3. 早停策略：
+       - 耐心窗口：3个epoch
+       - 最小提升阈值：0.001
+
+    结果分析：
+    1. 保存不同参数组合的最终验证精度
+    2. 记录达到最佳精度的收敛epoch数
+    3. 可视化学习率与优化器的交互影响
 
     测试组合：
     - 学习率：[0.1, 0.01, 0.001]
@@ -279,7 +347,12 @@ def hyperparameter_search():
                 for layer in layers:
                     a = layer.forward(a)
 
-                # 反向传播
+                # 反向传播（基于链式法则）
+            # 损失函数对输出的导数：∂L/∂a = (predicted - true)/batch_size
+            # 逐层计算梯度：
+            # ∂L/∂W = (a_prev.T @ δ) + λ*W （L2正则项）
+            # ∂L/∂b = mean(δ, axis=0)
+            # δ_{l-1} = δ @ W.T ⊙ σ'(z_{l-1})
                 dW_list = []
                 db_list = []
                 grad, dW, db = layers[-1].backward(y_train[i:i + batch_size], lr, reg_lambda)
