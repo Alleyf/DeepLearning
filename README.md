@@ -56,7 +56,7 @@ graph TD
 ### 项目概述
 本项目从零开始实现了一个仅25.8M参数的微型大语言模型MiniMind，包含预训练、微调、LoRA、DPO强化学习和模型蒸馏等完整流程。
 
-### 主要特点 ✨
+## 主要特点 ✨
 
 **实验一**
 - 🔧 纯NumPy实现，不依赖深度学习框架
@@ -74,33 +74,17 @@ graph TD
 - ⏱️ 低成本训练（3元+2小时）
 - 🧩 兼容主流框架(transformers/trl/peft)
 
-### 代码结构
-```mermaid
-classDiagram
-    class TrainingUtils {
-        +load_data()
-        +evaluate()
-        +save_model()
-        +plot_training_metrics()
-        +plot_confusion_matrix()
-        +plot_error_samples()
-    }
-    class NeuralNetwork {
-        +forward()
-        +backward()
-        +update()
-    }
-    TrainingUtils ..> NeuralNetwork
-```
-
-### 环境要求 🛠️
-- Python 3.6+
+## 环境要求 🛠️
+- Python 3.9+
 - NumPy
 - Matplotlib
 - Seaborn
 - Scikit-learn
+- torch
+- transformers
+- ...
 
-### 使用说明 📝
+## 使用说明 📝
 1. 克隆仓库
 ```bash
 git clone git@github.com:Alleyf/DeepLearning.git
@@ -112,9 +96,6 @@ cd DeepLearning
 ```bash
 # 方法1：直接从requirements.txt安装所有依赖
 pip install -r requirements.txt
-
-# 方法2：手动安装各个依赖包
-pip install numpy matplotlib seaborn scikit-learn
 ```
 
 3. 运行实验
@@ -122,13 +103,6 @@ pip install numpy matplotlib seaborn scikit-learn
 cd "experiment_one_numpy implementation of multi-layer neural network"
 python train.py
 ```
-
-### 实验结果 📊
-
-实验过程会生成以下可视化结果：
-- training_metrics.png：展示训练过程中的损失和准确率变化
-- confusion_matrix.png：展示模型在测试集上的混淆矩阵
-- error_samples.png：展示模型预测错误的样本示例
 
 ## 许可证 📄
 本项目基于 APACHE 2.0 许可证开源。
