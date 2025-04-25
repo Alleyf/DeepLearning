@@ -52,9 +52,9 @@ if __name__ == '__main__':
     lm_config = LMConfig(dim=512, n_layers=8, max_seq_len=8192, use_moe=False)
 
     torch_path = f"../out/rlhf_{lm_config.dim}{'_moe' if lm_config.use_moe else ''}.pth"
-
+    #torch_path = f"../out/reason_{lm_config.dim}{'_moe' if lm_config.use_moe else ''}.pth"
     transformers_path = '../MiniMind2-Small'
-
+    #transformers_path = '../MiniMind2-Small-R1'
     # convert torch to transformers model
     convert_torch2transformers(torch_path, transformers_path)
 

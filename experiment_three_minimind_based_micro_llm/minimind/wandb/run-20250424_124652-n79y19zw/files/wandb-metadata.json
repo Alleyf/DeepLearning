@@ -1,0 +1,51 @@
+{
+  "os": "Linux-3.10.0-1160.119.1.el7.x86_64-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.16",
+  "startedAt": "2025-04-24T12:46:52.868764Z",
+  "args": [
+    "--use_wandb"
+  ],
+  "program": "/workplace/fcs/minimind/train_dpo.py",
+  "codePath": "train_dpo.py",
+  "git": {
+    "remote": "https://github.com/jingyaogong/minimind.git",
+    "commit": "7da201a944a90ed49daef8a0265c959288dff83a"
+  },
+  "email": "3035581811@qq.com",
+  "root": "/workplace/fcs/minimind",
+  "host": "ubuntu2204-conda-68bd5b854c-t6zwh",
+  "executable": "/root/miniconda3/envs/minimind/bin/python",
+  "codePathLocal": "train_dpo.py",
+  "cpu_count": 32,
+  "cpu_count_logical": 64,
+  "gpu": "Tesla T4",
+  "gpu_count": 2,
+  "disk": {
+    "/": {
+      "total": "2142734647296",
+      "used": "1244071591936"
+    }
+  },
+  "memory": {
+    "total": "269905072128"
+  },
+  "cpu": {
+    "count": 32,
+    "countLogical": 64
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Tesla T4",
+      "memoryTotal": "16106127360",
+      "cudaCores": 2560,
+      "architecture": "Turing"
+    },
+    {
+      "name": "Tesla T4",
+      "memoryTotal": "16106127360",
+      "cudaCores": 2560,
+      "architecture": "Turing"
+    }
+  ],
+  "cudaVersion": "12.4"
+}

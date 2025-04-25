@@ -6,12 +6,12 @@
 
 <div align="center">
 
-![visitors](https://visitor-badge.laobi.icu/badge?page_id=jingyaogong/minimind)
-[![GitHub Repo stars](https://img.shields.io/github/stars/jingyaogong/minimind?style=social)](https://github.com/jingyaogong/minimind/stargazers)
-[![GitHub Code License](https://img.shields.io/github/license/jingyaogong/minimind)](LICENSE)
-[![GitHub last commit](https://img.shields.io/github/last-commit/jingyaogong/minimind)](https://github.com/jingyaogong/minimind/commits/master)
-[![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/jingyaogong/minimind/pulls)
-[![Collection](https://img.shields.io/badge/🤗-MiniMind%20%20Collection-blue)](https://huggingface.co/collections/jingyaogong/minimind-66caf8d999f5c7fa64f399e5)
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=Alleyf/DeepLearning)
+[![GitHub Repo stars](https://img.shields.io/github/stars/Alleyf/DeepLearning?style=social)](https://github.com/Alleyf/DeepLearning/stargazers)
+[![GitHub Code License](https://img.shields.io/github/license/Alleyf/DeepLearning)](LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Alleyf/DeepLearning)](https://github.com/Alleyf/DeepLearning/commits/master)
+[![GitHub pull request](https://img.shields.io/badge/PRs-welcome-blue)](https://github.com/Alleyf/DeepLearning/pulls)
+[![Collection](https://img.shields.io/badge/🤗-MiniMind%20%20Collection-blue)](https://huggingface.co/collections/Alleyf/DeepLearning-66caf8d999f5c7fa64f399e5)
 
 </div>
 
@@ -29,7 +29,7 @@
 * **MiniMind**系列极其轻量，最小版本体积是 GPT-3 的 $\frac{1}{7000}$，力求做到最普通的个人GPU也可快速训练。
 * 项目同时开源了大模型的极简结构-包含拓展共享混合专家(MoE)、数据集清洗、预训练(Pretrain)、监督微调(SFT)、LoRA微调，
   直接偏好强化学习(DPO)算法、模型蒸馏算法等全过程代码。
-* **MiniMind**同时拓展了视觉多模态的VLM: [MiniMind-V](https://github.com/jingyaogong/minimind-v)。
+* **MiniMind**同时拓展了视觉多模态的VLM: [MiniMind-V](https://github.com/Alleyf/DeepLearning-v)。
 * 项目所有核心算法代码均从0使用PyTorch原生重构！不依赖第三方库提供的抽象接口。
 * 这不仅是大语言模型的全阶段开源复现，也是一个入门LLM的教程。
 * 希望此项目能为所有人提供一个抛砖引玉的示例，一起感受创造的乐趣！推动更广泛AI社区的进步！
@@ -39,10 +39,27 @@
 
 ---
 
+<div align="center">
+
+自制HUST研究生手册数据集
+
+![自制HUST研究生手册数据集](./images/自制hust研究生手册数据集.png)
+
+</div>
 
 <div align="center">
 
+模型问答效果测试
+
+![minimind2-Small-R1](./images/模型问答测试.png)
+
 ![minimind2](./images/minimind2.gif)
+
+
+</div>
+
+
+
 
 [🔗🍓推理模型](https://www.modelscope.cn/studios/gongjy/MiniMind-Reasoning) | [🔗🤖常规模型](https://www.modelscope.cn/studios/gongjy/MiniMind) | [🔗🎞️视频介绍](https://www.bilibili.com/video/BV12dHPeqE72/?share_source=copy_web&vd_source=670c2504f88726f8cf4a21ef6147c0e8)
 
@@ -51,7 +68,7 @@
   <table>
     <tr>
       <td align="center">
-        <a href="https://huggingface.co/collections/jingyaogong/minimind-66caf8d999f5c7fa64f399e5" style="text-decoration: none;">
+        <a href="https://huggingface.co/collections/Alleyf/DeepLearning-66caf8d999f5c7fa64f399e5" style="text-decoration: none;">
           <img src="./images/and_huggingface.png" alt="Hugging Face Logo" style="vertical-align: middle; width: auto; max-width: 100%;" />
         </a>
       </td>
@@ -125,7 +142,7 @@
 
 - 迎来发布以来重大更新，Release MiniMind2 Series。
 - 代码几乎全部重构，使用更简洁明了的统一结构。
-  如有旧代码的兼容性需要，可访问[🔗旧仓库内容🔗](https://github.com/jingyaogong/minimind/tree/6e9cd28ef9b34a0a10afbdf6f59e65cb6e628efb)。
+  如有旧代码的兼容性需要，可访问[🔗旧仓库内容🔗](https://github.com/Alleyf/DeepLearning/tree/6e9cd28ef9b34a0a10afbdf6f59e65cb6e628efb)。
 - 免去数据预处理步骤。统一数据集格式，更换为`jsonl`格式杜绝数据集下载混乱的问题。
 - MiniMind2系列效果相比MiniMind-V1显著提升。
 - 小问题：{kv-cache写法更标准、MoE的负载均衡loss被考虑等等}
@@ -144,7 +161,7 @@
 <summary> <b>2024-10-05</b> </summary>
 
 - 为MiniMind拓展了多模态能力之---视觉
-- 移步孪生项目[minimind-v](https://github.com/jingyaogong/minimind-v)查看详情！
+- 移步孪生项目[minimind-v](https://github.com/Alleyf/DeepLearning-v)查看详情！
 
 </details>
 
@@ -204,7 +221,7 @@
 ### 第0步
 
 ```bash
-git clone https://github.com/jingyaogong/minimind.git
+git clone https://github.com/Alleyf/DeepLearning.git
 ```
 
 ## Ⅰ 测试已有模型效果
@@ -218,7 +235,7 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ### 2.下载模型
 
 ```bash
-git clone https://huggingface.co/jingyaogong/MiniMind2
+git clone https://huggingface.co/Alleyf/DeepLearning2
 ```
 
 ### 3.命令行问答
@@ -483,7 +500,7 @@ quality（当然也还不算high，提升数据质量无止尽）。
 > [!NOTE]
 > 2025-02-05后，开源MiniMind最终训练所用的所有数据集，因此无需再自行预处理大规模数据集，避免重复性的数据处理工作。
 
-MiniMind训练数据集 ([ModelScope](https://www.modelscope.cn/datasets/gongjy/minimind_dataset/files) | [HuggingFace](https://huggingface.co/datasets/jingyaogong/minimind_dataset/tree/main))
+MiniMind训练数据集 ([ModelScope](https://www.modelscope.cn/datasets/gongjy/minimind_dataset/files) | [HuggingFace](https://huggingface.co/datasets/Alleyf/DeepLearning_dataset/tree/main))
 
 > 无需全部clone，可单独下载所需的文件
 
@@ -918,7 +935,7 @@ MiniMind2 模型训练损失走势（由于数据集在训练后又更新清洗�
 
 #### ① PyTorch原生模型
 
-MiniMind2模型权重 ([ModelScope](https://www.modelscope.cn/models/gongjy/MiniMind2-PyTorch) | [HuggingFace](https://huggingface.co/jingyaogong/MiniMind2-Pytorch))
+MiniMind2模型权重 ([ModelScope](https://www.modelscope.cn/models/gongjy/MiniMind2-PyTorch) | [HuggingFace](https://huggingface.co/Alleyf/DeepLearning2-Pytorch))
 
 MiniMind-V1模型权重 ([百度网盘](https://pan.baidu.com/s/1KUfSzEkSXYbCCBj0Pw-9fA?pwd=6666))
 
@@ -942,7 +959,7 @@ MiniMind-V1模型权重 ([百度网盘](https://pan.baidu.com/s/1KUfSzEkSXYbCCBj
 #### ② Transformers模型
 
 MiniMind系列 ([ModelScope](https://www.modelscope.cn/collections/MiniMind-b72f4cfeb74b47)
-| [HuggingFace](https://huggingface.co/collections/jingyaogong/minimind-66caf8d999f5c7fa64f399e5))
+| [HuggingFace](https://huggingface.co/collections/Alleyf/DeepLearning-66caf8d999f5c7fa64f399e5))
 
 ---
 
@@ -1219,7 +1236,7 @@ MiniMind模型本身预训练数据集小的可怜，也没有针对性的对测
 * [./scripts/convert_model.py](./scripts/convert_model.py)可以将torch/transformers模型互相转换。
 
 * MiniMind的HuggingFace集合地址：
-  [MiniMind](https://huggingface.co/collections/jingyaogong/minimind-66caf8d999f5c7fa64f399e5)
+  [MiniMind](https://huggingface.co/collections/Alleyf/DeepLearning-66caf8d999f5c7fa64f399e5)
 
 ---
 
@@ -1228,7 +1245,7 @@ MiniMind模型本身预训练数据集小的可怜，也没有针对性的对测
 * [./scripts/serve_openai_api.py](./scripts/serve_openai_api.py)完成了兼容openai-api的最简聊天接口，方便将自己的模型接入第三方UI
   例如FastGPT、OpenWebUI、Dify等等。
 
-* 从[Huggingface](https://huggingface.co/collections/jingyaogong/minimind-66caf8d999f5c7fa64f399e5)下载模型权重文件，文件树：
+* 从[Huggingface](https://huggingface.co/collections/Alleyf/DeepLearning-66caf8d999f5c7fa64f399e5)下载模型权重文件，文件树：
     ```
     <MiniMind-Model-Name> (root dir)
     ├─<MiniMind-Model-Name>
@@ -1272,11 +1289,11 @@ MiniMind模型本身预训练数据集小的可怜，也没有针对性的对测
 > 篇幅超长水平有限难免纰漏，欢迎在Issues交流指正或提交PR改进项目<br/>
 > 您的小小支持就是持续改进此项目的动力！
 
-## 🤝[贡献者](https://github.com/jingyaogong/minimind/graphs/contributors)
+## 🤝[贡献者](https://github.com/Alleyf/DeepLearning/graphs/contributors)
 
 <!--
-<a href="https://github.com/jingyaogong/minimind/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=jingyaogong/minimind&v3" />
+<a href="https://github.com/Alleyf/DeepLearning/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Alleyf/DeepLearning&v3" />
 </a>
 -->
 
@@ -1292,22 +1309,22 @@ MiniMind模型本身预训练数据集小的可怜，也没有针对性的对测
 ## 😊鸣谢
 
 <a href="https://github.com/ipfgao"><b>@ipfgao</b></a>:
-<a href="https://github.com/jingyaogong/minimind/issues/26">🔗训练步骤记录</a>
+<a href="https://github.com/Alleyf/DeepLearning/issues/26">🔗训练步骤记录</a>
 
 <a href="https://github.com/chuanzhubin"><b>@chuanzhubin</b></a>:
-<a href="https://github.com/jingyaogong/minimind/pull/34">🔗代码逐行注释</a>
+<a href="https://github.com/Alleyf/DeepLearning/pull/34">🔗代码逐行注释</a>
 
 <a href="https://github.com/WangRongsheng"><b>@WangRongsheng</b></a>:
-<a href="https://github.com/jingyaogong/minimind/issues/39">🔗大型数据集预处理</a>
+<a href="https://github.com/Alleyf/DeepLearning/issues/39">🔗大型数据集预处理</a>
 
 <a href="https://github.com/pengqianhan"><b>@pengqianhan</b></a>:
-<a href="https://github.com/jingyaogong/minimind/issues/73">🔗一个简明教程</a>
+<a href="https://github.com/Alleyf/DeepLearning/issues/73">🔗一个简明教程</a>
 
 <a href="https://github.com/RyanSunn"><b>@RyanSunn</b></a>:
-<a href="https://github.com/jingyaogong/minimind/issues/75">🔗推理过程学习记录</a>
+<a href="https://github.com/Alleyf/DeepLearning/issues/75">🔗推理过程学习记录</a>
 
 <a href="https://github.com/Nijikadesu"><b>@Nijikadesu</b></a>:
-<a href="https://github.com/jingyaogong/minimind/issues/213">🔗以交互笔记本方式分解项目代码</a>
+<a href="https://github.com/Alleyf/DeepLearning/issues/213">🔗以交互笔记本方式分解项目代码</a>
 
 
 <details close> 
@@ -1331,26 +1348,26 @@ MiniMind模型本身预训练数据集小的可怜，也没有针对性的对测
 
 ## 🫶支持者
 
-<a href="https://github.com/jingyaogong/minimind/stargazers">
+<a href="https://github.com/Alleyf/DeepLearning/stargazers">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://reporoster.com/stars/dark/jingyaogong/minimind"/>
-      <source media="(prefers-color-scheme: light)" srcset="https://reporoster.com/stars/jingyaogong/minimind"/>
-      <img alt="github contribution grid snake animation" src="https://reporoster.com/stars/jingyaogong/minimind"/>
+      <source media="(prefers-color-scheme: dark)" srcset="https://reporoster.com/stars/dark/Alleyf/DeepLearning"/>
+      <source media="(prefers-color-scheme: light)" srcset="https://reporoster.com/stars/Alleyf/DeepLearning"/>
+      <img alt="github contribution grid snake animation" src="https://reporoster.com/stars/Alleyf/DeepLearning"/>
     </picture>
 </a>
 
-<a href="https://github.com/jingyaogong/minimind/network/members">
+<a href="https://github.com/Alleyf/DeepLearning/network/members">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://reporoster.com/forks/dark/jingyaogong/minimind"/>
-      <source media="(prefers-color-scheme: light)" srcset="https://reporoster.com/forks/jingyaogong/minimind"/>
-      <img alt="github contribution grid snake animation" src="https://reporoster.com/forks/jingyaogong/minimind"/>
+      <source media="(prefers-color-scheme: dark)" srcset="https://reporoster.com/forks/dark/Alleyf/DeepLearning"/>
+      <source media="(prefers-color-scheme: light)" srcset="https://reporoster.com/forks/Alleyf/DeepLearning"/>
+      <img alt="github contribution grid snake animation" src="https://reporoster.com/forks/Alleyf/DeepLearning"/>
     </picture>
 </a>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jingyaogong/minimind&type=Date&theme=dark"/>
-  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=jingyaogong/minimind&type=Date"/>
-  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=jingyaogong/minimind&type=Date"/>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Alleyf/DeepLearning&type=Date&theme=dark"/>
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Alleyf/DeepLearning&type=Date"/>
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Alleyf/DeepLearning&type=Date"/>
 </picture>
 
 # License

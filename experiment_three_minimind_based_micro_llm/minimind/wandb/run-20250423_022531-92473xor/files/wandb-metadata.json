@@ -1,0 +1,52 @@
+{
+  "os":  "Linux-3.10.0-1160.119.1.el7.x86_64-x86_64-with-glibc2.35",
+  "python":  "3.10.16",
+  "startedAt":  "2025-04-23T02:25:31.581585Z",
+  "args":  [
+    "--use_wandb"
+  ],
+  "program":  "/workplace/fcs/minimind/train_distill_reason.py",
+  "codePath":  "train_distill_reason.py",
+  "git":  {
+    "remote":  "https://github.com/jingyaogong/minimind.git",
+    "commit":  "7da201a944a90ed49daef8a0265c959288dff83a"
+  },
+  "email":  "3035581811@qq.com",
+  "root":  "/workplace/fcs/minimind",
+  "host":  "ubuntu2204-conda-55fdbfbcf8-vgh8r",
+  "username":  "root",
+  "executable":  "/root/miniconda3/envs/minimind/bin/python",
+  "codePathLocal":  "train_distill_reason.py",
+  "cpu_count":  32,
+  "cpu_count_logical":  64,
+  "gpu":  "[Tesla T4, Tesla T4]",
+  "gpu_count":  2,
+  "disk":  {
+    "/":  {
+      "total":  "2142734647296",
+      "used":  "1243158441984"
+    }
+  },
+  "memory":  {
+    "total":  "269905072128"
+  },
+  "cpu":  {
+    "count":  32,
+    "countLogical":  64
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "Tesla T4",
+      "memoryTotal":  "16106127360",
+      "cudaCores":  2560,
+      "architecture":  "Turing"
+    },
+    {
+      "name":  "Tesla T4",
+      "memoryTotal":  "16106127360",
+      "cudaCores":  2560,
+      "architecture":  "Turing"
+    }
+  ],
+  "cudaVersion":  "12.4"
+}
